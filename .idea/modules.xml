@@ -31,7 +31,7 @@
       <module fileurl="file://$PROJECT_DIR$/org.dieschnittstelle.ess.mip.ms.shared.webapp/mip-ms-shared-webapp.iml" filepath="$PROJECT_DIR$/org.dieschnittstelle.ess.mip.ms.shared.webapp/mip-ms-shared-webapp.iml" group="9_MIP-MS" />
       <module fileurl="file://$PROJECT_DIR$/org.dieschnittstelle.ess.mip.ms.shopping.app.tomee/mip-ms-shopping-app-tomee.iml" filepath="$PROJECT_DIR$/org.dieschnittstelle.ess.mip.ms.shopping.app.tomee/mip-ms-shopping-app-tomee.iml" group="9_MIP-MS" />
       <module fileurl="file://$PROJECT_DIR$/org.dieschnittstelle.ess.mip.webapp/mip-webapp.iml" filepath="$PROJECT_DIR$/org.dieschnittstelle.ess.mip.webapp/mip-webapp.iml" group="7_MIP+JPA+ADD+PAT" />
-      <module fileurl="file://$PROJECT_DIR$/org.dieschnittstelle.ess.opi.client/opi-client.iml" filepath="$PROJECT_DIR$/org.dieschnittstelle.ess.opi.client/opi-client.iml" group="5_OPI"/>
+      <module fileurl="file://$PROJECT_DIR$/org.dieschnittstelle.ess.opi.client/opi-client.iml" filepath="$PROJECT_DIR$/org.dieschnittstelle.ess.opi.client/opi-client.iml" group="5_OPI" />
       <module fileurl="file://$PROJECT_DIR$/org.dieschnittstelle.ess.ser.client/ser-client.iml" filepath="$PROJECT_DIR$/org.dieschnittstelle.ess.ser.client/ser-client.iml" group="3_SER" />
       <module fileurl="file://$PROJECT_DIR$/org.dieschnittstelle.ess.ser/ser-webapp.iml" filepath="$PROJECT_DIR$/org.dieschnittstelle.ess.ser/ser-webapp.iml" group="3_SER" />
       <module fileurl="file://$PROJECT_DIR$/org.dieschnittstelle.ess.ue.add2/ue-add2.iml" filepath="$PROJECT_DIR$/org.dieschnittstelle.ess.ue.add2/ue-add2.iml" group="10_ADD" />
