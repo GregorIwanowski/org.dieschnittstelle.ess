@@ -4,6 +4,7 @@ package org.dieschnittstelle.ess.basics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dieschnittstelle.ess.basics.annotations.AnnotatedStockItemBuilder;
+import org.dieschnittstelle.ess.basics.annotations.DisplayAs;
 import org.dieschnittstelle.ess.basics.annotations.StockItemProxyImpl;
 import org.dieschnittstelle.ess.basics.reflection.ReflectedStockItemBuilder;
 
@@ -46,12 +47,24 @@ public class ShowAnnotations {
 		//  Note that only read-access to fields via getters or direct access
 		//  is required here.
 
+		// TODO BAS3: if the new @DisplayAs annotation is present on a field,
+		//  the string representation will not use the field's name, but the name
+		//  specified in the the annotation. Regardless of @DisplayAs being present
+		//  or not, the field's value will be included in the string representation.
+
+
 		Class klass = instance.getClass();
 		StringBuilder sb = new StringBuilder("{" + klass.getSimpleName());
 		try {
 			for (Field f : klass.getDeclaredFields()) {
 				f.setAccessible(true);
-				sb.append(" ").append(f.getName()).append(":").append(f.get(instance)).append(",");
+				sb.append(" ");
+				if (f.isAnnotationPresent(DisplayAs.class)) {
+					sb.append(f.getAnnotation(DisplayAs.class).value());
+				} else {
+					sb.append(f.getName());
+				}
+				sb.append(":").append(f.get(instance)).append(",");
 			}
 
 			sb.setCharAt(sb.length()-1, '}');
@@ -61,11 +74,6 @@ public class ShowAnnotations {
 			logger.error("got IllegalAccessException: " + e, e);
 			throw new RuntimeException(e);
 		}
-
-		// TODO BAS3: if the new @DisplayAs annotation is present on a field,
-		//  the string representation will not use the field's name, but the name
-		//  specified in the the annotation. Regardless of @DisplayAs being present
-		//  or not, the field's value will be included in the string representation.
 	}
 
 }
