@@ -47,15 +47,15 @@ public class ShowAnnotations {
 		//  is required here.
 
 		Class klass = instance.getClass();
-		String representation = "{" + klass.getSimpleName();
+		StringBuilder sb = new StringBuilder("{" + klass.getSimpleName());
 		try {
 			for (Field f : klass.getDeclaredFields()) {
 				f.setAccessible(true);
-				representation += " " + f.getName() + ":" + f.get(instance) + ",";
+				sb.append(" ").append(f.getName()).append(":").append(f.get(instance)).append(",");
 			}
 
-			representation = representation.substring(0, representation.length() - 1) + "}";
-			logger.info(representation + "\n");
+			sb.setCharAt(sb.length()-1, '}');
+			logger.info(sb);
 
 		} catch (IllegalAccessException e) {
 			logger.error("got IllegalAccessException: " + e, e);
