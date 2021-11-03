@@ -33,8 +33,7 @@ public interface IProductCRUDService {
 
 	@PUT
 	@Path("/{productId}")
-	public IndividualisedProductItem updateProduct(@PathParam("productId") long id,
-												   IndividualisedProductItem update);
+	public IndividualisedProductItem updateProduct(@PathParam("productId") long id, IndividualisedProductItem update);
 
 	@DELETE
 	@Path("/{productId}")
