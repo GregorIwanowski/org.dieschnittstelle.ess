@@ -27,7 +27,7 @@ public class ProductCRUDServiceImpl implements IProductCRUDService {
 
 	@Override
 	public List<IndividualisedProductItem> readAllProducts() {
-		return this.productCRUD.readAllObjects();
+		return (List) this.productCRUD.readAllObjects();
 	}
 
 	@Override
