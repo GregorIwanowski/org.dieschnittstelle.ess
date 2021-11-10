@@ -1,8 +1,7 @@
 package org.dieschnittstelle.ess.jrs;
 
 import org.dieschnittstelle.ess.entities.GenericCRUDExecutor;
-import org.dieschnittstelle.ess.entities.crm.StationaryTouchpoint;
-import org.dieschnittstelle.ess.entities.erp.IndividualisedProductItem;
+import org.dieschnittstelle.ess.entities.erp.AbstractProduct;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
@@ -14,24 +13,24 @@ import java.util.List;
 
 public class ProductCRUDServiceImpl implements IProductCRUDService {
 
-	private GenericCRUDExecutor<IndividualisedProductItem> productCRUD;
+	private GenericCRUDExecutor<AbstractProduct> productCRUD;
 
 	public ProductCRUDServiceImpl(@Context ServletContext servletContext) {
-		this.productCRUD = (GenericCRUDExecutor<IndividualisedProductItem>) servletContext.getAttribute("productCRUD");
+		this.productCRUD = (GenericCRUDExecutor<AbstractProduct>) servletContext.getAttribute("productCRUD");
 	}
 
 	@Override
-	public IndividualisedProductItem createProduct(IndividualisedProductItem prod) {
+	public AbstractProduct createProduct(AbstractProduct prod) {
 		return this.productCRUD.createObject(prod);
 	}
 
 	@Override
-	public List<IndividualisedProductItem> readAllProducts() {
+	public List<AbstractProduct> readAllProducts() {
 		return (List) this.productCRUD.readAllObjects();
 	}
 
 	@Override
-	public IndividualisedProductItem updateProduct(long id, IndividualisedProductItem update) {
+	public AbstractProduct updateProduct(long id, AbstractProduct update) {
 		return this.productCRUD.updateObject(update);
 	}
 
@@ -41,7 +40,7 @@ public class ProductCRUDServiceImpl implements IProductCRUDService {
 	}
 
 	@Override
-	public IndividualisedProductItem readProduct(long id) {
+	public AbstractProduct readProduct(long id) {
 		return this.productCRUD.readObject(id);
 	}
 	

@@ -13,7 +13,7 @@ import javax.json.bind.annotation.JsonbTypeDeserializer;
 import javax.json.bind.annotation.JsonbTypeSerializer;
 import javax.persistence.*;
 
-//@JsonbTypeSerializer(JsonbJsonTypeInfoHandler.class)
+@JsonbTypeSerializer(JsonbJsonTypeInfoHandler.class)
 public class Campaign extends AbstractProduct implements Serializable {
 
 	protected static Logger logger = org.apache.logging.log4j.LogManager.getLogger(Campaign.class);
