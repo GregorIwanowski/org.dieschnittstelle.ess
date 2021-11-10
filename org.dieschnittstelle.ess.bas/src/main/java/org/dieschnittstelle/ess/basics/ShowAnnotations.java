@@ -68,7 +68,7 @@ public class ShowAnnotations {
 			}
 
 			sb.setCharAt(sb.length()-1, '}');
-			logger.info(sb);
+			show(sb);
 
 		} catch (IllegalAccessException e) {
 			logger.error("got IllegalAccessException: " + e, e);
