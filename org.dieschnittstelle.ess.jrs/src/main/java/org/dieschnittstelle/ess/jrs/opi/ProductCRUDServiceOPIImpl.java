@@ -53,6 +53,7 @@ public class ProductCRUDServiceOPIImpl {
 	// TODO: ueberlegen Sie, wie Sie createCampaign() von createProduct() unterscheidbar machen koennen - wenn
 	//  Sie JRS3 umgesetzt haben, koennen Sie die auskommentierte Codezeile entfernen
 	@POST
+	@Path("/campaign")
 	public Campaign createCampaign(
 			Campaign prod) {
 		return (Campaign) this.service.createProduct(prod);
