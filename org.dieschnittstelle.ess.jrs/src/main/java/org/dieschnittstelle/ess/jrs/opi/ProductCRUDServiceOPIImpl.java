@@ -25,6 +25,9 @@ import javax.ws.rs.core.MediaType;
  *  Zugegriffen wird auf diese Implementierung aus dem Testcase TestProductRESTServiceWithOpenAPI
  */
 // TODO: verwenden Sie die URI opi/products
+@Path("/opi/products")
+@Consumes({MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_JSON})
 public class ProductCRUDServiceOPIImpl {
 
 	private IProductCRUDService service;
@@ -38,6 +41,7 @@ public class ProductCRUDServiceOPIImpl {
 	 *  so zu instantiieren, dass es zur Laufzeit erfolgreich verwendet werden kann
 	 */
 
+	@POST
 	public IndividualisedProductItem createProduct(
 			IndividualisedProductItem prod) {
 		return (IndividualisedProductItem)this.service.createProduct(prod);
@@ -45,12 +49,14 @@ public class ProductCRUDServiceOPIImpl {
 
 	// TODO: ueberlegen Sie, wie Sie createCampaign() von createProduct() unterscheidbar machen koennen - wenn
 	//  Sie JRS3 umgesetzt haben, koennen Sie die auskommentierte Codezeile entfernen
+	@POST
 	public Campaign createCampaign(
 			Campaign prod) {
 //		return (Campaign) this.service.createProduct(prod);
 		return null;
 	}
 
+	@GET
 	public List<IndividualisedProductItem> readAllProducts() {
 		return (List)this.service.readAllProducts()
 				.stream()
@@ -58,16 +64,22 @@ public class ProductCRUDServiceOPIImpl {
 				.collect(Collectors.toList());
 	}
 
-	public IndividualisedProductItem updateProduct(long id,
+	@PUT
+	@Path("/{productId}")
+	public IndividualisedProductItem updateProduct(@PathParam("productId") long id,
 			IndividualisedProductItem update) {
 		return (IndividualisedProductItem)this.service.updateProduct(id,update);
 	}
 
-	public boolean deleteProduct(long id) {
+	@DELETE
+	@Path("/{productId}")
+	public boolean deleteProduct(@PathParam("productId") long id) {
 		return this.service.deleteProduct(id);
 	}
 
-	public IndividualisedProductItem readProduct(long id) {
+	@GET
+	@Path("/{productId}")
+	public IndividualisedProductItem readProduct(@PathParam("productId") long id) {
 		IndividualisedProductItem item = (IndividualisedProductItem)this.service.readProduct(id);
 		return item;
 	}

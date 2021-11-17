@@ -1,54 +1,14 @@
 ---
-openapi: "3.0.1"
 paths:
-  /api/health:
-    get:
-      parameters: []
-      operationId: "getChecks"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                properties: {}
-                type: "object"
-                nullable: true
-          description: "default response"
-        default:
-          content:
-            application/json:
-              schema:
-                properties: {}
-                type: "object"
-                nullable: true
-          description: "default response"
-  /api/metrics:
-    get:
-      parameters: []
-      operationId: "getText_1"
-      responses:
-        "200":
-          content:
-            text/plain:
-              schema:
-                type: "string"
-          description: "default response"
-        default:
-          content:
-            text/plain:
-              schema:
-                type: "string"
-          description: "default response"
   /api/metrics/{registry}:
     get:
       parameters:
       - name: "registry"
         in: "path"
-        required: true
         style: "simple"
+        required: true
         schema:
           type: "string"
-      operationId: "getText"
       responses:
         "200":
           content:
@@ -62,15 +22,15 @@ paths:
               schema:
                 type: "string"
           description: "default response"
+      operationId: "getText"
     options:
       parameters:
       - name: "registry"
         in: "path"
-        required: true
         style: "simple"
+        required: true
         schema:
           type: "string"
-      operationId: "getMetadata"
       responses:
         "200":
           content:
@@ -86,22 +46,22 @@ paths:
                 type: "object"
                 $ref: "#/components/schemas/java_lang_Object"
           description: "default response"
+      operationId: "getMetadata"
   /api/metrics/{registry}/{metric}:
     get:
       parameters:
       - name: "registry"
         in: "path"
-        required: true
         style: "simple"
+        required: true
         schema:
           type: "string"
       - name: "metric"
         in: "path"
-        required: true
         style: "simple"
+        required: true
         schema:
           type: "string"
-      operationId: "getText_1_2"
       responses:
         "200":
           content:
@@ -115,21 +75,21 @@ paths:
               schema:
                 type: "string"
           description: "default response"
+      operationId: "getText_1_2"
     options:
       parameters:
       - name: "registry"
         in: "path"
-        required: true
         style: "simple"
+        required: true
         schema:
           type: "string"
       - name: "metric"
         in: "path"
-        required: true
         style: "simple"
+        required: true
         schema:
           type: "string"
-      operationId: "getMetadata_1"
       responses:
         "200":
           content:
@@ -145,6 +105,47 @@ paths:
                 type: "object"
                 $ref: "#/components/schemas/java_lang_Object"
           description: "default response"
+      operationId: "getMetadata_1"
+  /api/metrics:
+    get:
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: "object"
+                $ref: "#/components/schemas/java_lang_Object"
+          description: "default response"
+        default:
+          content:
+            application/json:
+              schema:
+                type: "object"
+                $ref: "#/components/schemas/java_lang_Object"
+          description: "default response"
+      operationId: "getJson_1_2"
+  /api/health:
+    get:
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties: {}
+                type: "object"
+                nullable: true
+          description: "default response"
+        default:
+          content:
+            application/json:
+              schema:
+                properties: {}
+                type: "object"
+                nullable: true
+          description: "default response"
+      operationId: "getChecks"
   /api/async/touchpoints/{id}: {}
   /api/async/touchpoints: {}
   /api/opi/touchpoints/{id}:
@@ -152,11 +153,10 @@ paths:
       parameters:
       - name: "id"
         in: "path"
-        required: true
         style: "simple"
+        required: true
         schema:
           type: "integer"
-      operationId: "readTouchpoint"
       responses:
         "200":
           content:
@@ -172,15 +172,15 @@ paths:
                 type: "object"
                 $ref: "#/components/schemas/StationaryTouchpoint"
           description: "default response"
+      operationId: "readTouchpoint"
     delete:
       parameters:
       - name: "id"
         in: "path"
-        required: true
         style: "simple"
+        required: true
         schema:
           type: "integer"
-      operationId: "deleteTouchpoint"
       responses:
         "200":
           content:
@@ -194,10 +194,10 @@ paths:
               schema:
                 type: "boolean"
           description: "default response"
+      operationId: "deleteTouchpoint"
   /api/opi/touchpoints:
     get:
       parameters: []
-      operationId: "readAllTouchpoints"
       responses:
         "200":
           content:
@@ -217,9 +217,24 @@ paths:
                   type: "object"
                   $ref: "#/components/schemas/StationaryTouchpoint"
           description: "default response"
+      operationId: "readAllTouchpoints"
     post:
       parameters: []
-      operationId: "createTouchpoint"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: "object"
+                $ref: "#/components/schemas/StationaryTouchpoint"
+          description: "default response"
+        default:
+          content:
+            application/json:
+              schema:
+                type: "object"
+                $ref: "#/components/schemas/StationaryTouchpoint"
+          description: "default response"
       requestBody:
         content:
           application/json:
@@ -227,21 +242,19 @@ paths:
               type: "object"
               $ref: "#/components/schemas/StationaryTouchpoint"
         required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: "object"
-                $ref: "#/components/schemas/StationaryTouchpoint"
-          description: "default response"
-        default:
-          content:
-            application/json:
-              schema:
-                type: "object"
-                $ref: "#/components/schemas/StationaryTouchpoint"
-          description: "default response"
+      operationId: "createTouchpoint"
+info:
+  version: "0.1"
+  description: ""
+  license:
+    name: ""
+    url: ""
+  contact:
+    name: ""
+    url: ""
+    email: ""
+  termsOfService: ""
+  title: "WebAPI for JRS, OPI and WSV exercises"
 components:
   schemas:
     java_lang_Object:
@@ -288,9 +301,9 @@ components:
       type: "object"
     org_dieschnittstelle_ess_entities_crm_Customer:
       properties:
-        firstName:
-          type: "string"
         lastName:
+          type: "string"
+        firstName:
           type: "string"
         address:
           type: "object"
@@ -386,15 +399,4 @@ components:
             type: "object"
             $ref: "#/components/schemas/org_dieschnittstelle_ess_entities_crm_CustomerTransaction"
       type: "object"
-info:
-  version: "0.1"
-  contact:
-    name: ""
-    url: ""
-    email: ""
-  termsOfService: ""
-  title: "WebAPI for JRS, OPI and WSV exercises"
-  description: ""
-  license:
-    name: ""
-    url: ""
+openapi: "3.0.1"
