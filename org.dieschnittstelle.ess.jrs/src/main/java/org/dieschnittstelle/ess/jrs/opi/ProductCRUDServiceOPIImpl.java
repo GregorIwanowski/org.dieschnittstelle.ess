@@ -40,6 +40,9 @@ public class ProductCRUDServiceOPIImpl {
 	 * TODO: implementieren Sie einen weiteren Konstruktor, der es Ihnen erlaubt, das service Attribut
 	 *  so zu instantiieren, dass es zur Laufzeit erfolgreich verwendet werden kann
 	 */
+	public ProductCRUDServiceOPIImpl(@Context ServletContext servletContext) {
+		this.service = new ProductCRUDServiceImpl(servletContext);
+	}
 
 	@POST
 	public IndividualisedProductItem createProduct(
@@ -52,8 +55,7 @@ public class ProductCRUDServiceOPIImpl {
 	@POST
 	public Campaign createCampaign(
 			Campaign prod) {
-//		return (Campaign) this.service.createProduct(prod);
-		return null;
+		return (Campaign) this.service.createProduct(prod);
 	}
 
 	@GET
