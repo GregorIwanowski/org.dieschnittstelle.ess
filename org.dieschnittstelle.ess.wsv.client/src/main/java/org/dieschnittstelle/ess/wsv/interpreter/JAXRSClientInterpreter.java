@@ -79,13 +79,13 @@ public class JAXRSClientInterpreter implements InvocationHandler {
 
         // TODO: create the url using baseurl and commonpath (further segments may be added if the method has an own @Path annotation)
         String url = this.baseurl + this.commonPath;
+
+        // TODO: check whether we have a path annotation and append the url (path params will be handled when looking at the method arguments)
         if (meth.isAnnotationPresent(Path.class)) {
             url += meth.getAnnotation(Path.class).value();
         }
 
         show("url (initially): " + url);
-
-        // TODO: check whether we have a path annotation and append the url (path params will be handled when looking at the method arguments)
 
         // a value that needs to be sent via the http request body
         Object bodyValue = null;
