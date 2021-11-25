@@ -30,7 +30,7 @@ public class AccessRESTServiceWithInterpreter {
 		 * TODO WSV1 (here and following TODOs): create an instance of the invocation handler passing the service
 		 * interface and the base url
 		 */
-        JAXRSClientInterpreter invocationHandler = null;
+        JAXRSClientInterpreter invocationHandler = new JAXRSClientInterpreter(ITouchpointCRUDService.class, "http://localhost:8080/api");
 
 		/*
 		 * TODO: create a client for the web service using Proxy.newProxyInstance()
@@ -38,7 +38,7 @@ public class AccessRESTServiceWithInterpreter {
         ITouchpointCRUDService serviceProxy =
                 (ITouchpointCRUDService) Proxy.newProxyInstance(AccessRESTServiceWithInterpreter.class.getClassLoader(),
                     new Class[]{ITouchpointCRUDService.class},
-                    new JAXRSClientInterpreter(ITouchpointCRUDService.class, "http://localhost:8080/api")
+                        invocationHandler
 //                    new InvocationHandler() {
 //                        @Override
 //                        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -61,14 +61,14 @@ public class AccessRESTServiceWithInterpreter {
 
 
         // TODO: comment-in the call to delete() once this is handled by the invocation handler
-//		// 2) delete the touchpoint if there is one
-//		if (tps.size() > 0) {
-//          step();
-//			show("deleted: "
-//					+ serviceProxy.deleteTouchpoint(tps.get(0).getId()));
-//		}
-//
-//		// 3) create a new touchpoint
+		// 2) delete the touchpoint if there is one
+		if (tps.size() > 0) {
+          step();
+			show("deleted: "
+					+ serviceProxy.deleteTouchpoint(tps.get(0).getId()));
+		}
+
+		// 3) create a new touchpoint
         step();
 
         Address addr = new Address("Luxemburger Strasse", "10", "13353",

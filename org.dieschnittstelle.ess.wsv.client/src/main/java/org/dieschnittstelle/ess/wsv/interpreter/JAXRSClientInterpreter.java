@@ -7,12 +7,11 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.logging.log4j.Logger;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
@@ -95,6 +94,11 @@ public class JAXRSClientInterpreter implements InvocationHandler {
             if (meth.getParameterAnnotations()[0].length > 0 && meth.getParameterAnnotations()[0][0].annotationType() == PathParam.class) {
                 // TODO: handle PathParam on the first argument - do not forget that in this case we might have a second argument providing a bodyValue
                 // TODO: if we have a path param, we need to replace the corresponding pattern in the url with the parameter value
+                //show("Pathparam: %s", meth.getParameterAnnotations()[0][0]);
+                String pathParamValue = meth.getParameterAnnotations()[0][0].toString().split("\"")[1];
+                url = url.replace("{" + pathParamValue + "}", args[0].toString());
+                //show("Pathparam.value: %s", pathParamValue);
+                //show("Pathparam_value: %s", args[0]);
             }
             else {
                 // if we do not have a path param, we assume the argument value will be sent via the body of the request
@@ -115,6 +119,9 @@ public class JAXRSClientInterpreter implements InvocationHandler {
             request = new HttpPost(url);
         }
         // TODO: gleiches für DELETE und PUT
+        else if (meth.isAnnotationPresent(DELETE.class)) {
+            request = new HttpDelete(url);
+        }
         else {
             throw new UnsupportedOperationException("Cannot handle method invocation of: " + meth.getName());
         }
