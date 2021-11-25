@@ -79,23 +79,23 @@ public class AccessRESTServiceWithInterpreter {
         show("created: " + tp);
 
         // TODO: comment-in the call to read() once this is handled
-//		/*
-//		 * 4) read out the new touchpoint
-//		 */
-//		show("read created: " + serviceProxy.readTouchpoint(tp.getId()));
-//
+		/*
+		 * 4) read out the new touchpoint
+		 */
+		show("read created: " + serviceProxy.readTouchpoint(tp.getId()));
+
 
         // TODO: comment-in the call to update() once this is handled
-//		/*
-//		 * 5) update the touchpoint
-//		 */
-//		// change the name
-//		step();
-//		tp.setName("BHT Mensa");
-//
-//
-//		tp = serviceProxy.updateTouchpoint(tp.getId(), tp);
-//		show("updated: " + tp);
+		/*
+		 * 5) update the touchpoint
+		 */
+		// change the name
+		step();
+		tp.setName("BHT Mensa");
+
+
+		tp = serviceProxy.updateTouchpoint(tp.getId(), tp);
+		show("updated: " + tp);
 
     }
 

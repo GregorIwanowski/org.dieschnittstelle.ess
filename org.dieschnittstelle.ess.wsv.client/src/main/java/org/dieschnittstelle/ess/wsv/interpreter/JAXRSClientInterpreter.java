@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.*;
 import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -19,9 +19,6 @@ import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ByteArrayEntity;
 
 import org.dieschnittstelle.ess.utils.Http;
@@ -99,6 +96,9 @@ public class JAXRSClientInterpreter implements InvocationHandler {
                 url = url.replace("{" + pathParamValue + "}", args[0].toString());
                 //show("Pathparam.value: %s", pathParamValue);
                 //show("Pathparam_value: %s", args[0]);
+                if (args.length > 1) {
+                    bodyValue = args[1];
+                }
             }
             else {
                 // if we do not have a path param, we assume the argument value will be sent via the body of the request
@@ -118,9 +118,11 @@ public class JAXRSClientInterpreter implements InvocationHandler {
         else if (meth.isAnnotationPresent(POST.class)) {
             request = new HttpPost(url);
         }
-        // TODO: gleiches für DELETE und PUT
         else if (meth.isAnnotationPresent(DELETE.class)) {
             request = new HttpDelete(url);
+        }
+        else if (meth.isAnnotationPresent(PUT.class)) {
+            request = new HttpPut(url);
         }
         else {
             throw new UnsupportedOperationException("Cannot handle method invocation of: " + meth.getName());
