@@ -91,11 +91,8 @@ public class JAXRSClientInterpreter implements InvocationHandler {
             if (meth.getParameterAnnotations()[0].length > 0 && meth.getParameterAnnotations()[0][0].annotationType() == PathParam.class) {
                 // TODO: handle PathParam on the first argument - do not forget that in this case we might have a second argument providing a bodyValue
                 // TODO: if we have a path param, we need to replace the corresponding pattern in the url with the parameter value
-                //show("Pathparam: %s", meth.getParameterAnnotations()[0][0]);
-                String pathParamValue = meth.getParameterAnnotations()[0][0].toString().split("\"")[1];
+                String pathParamValue = ((PathParam)meth.getParameterAnnotations()[0][0]).value();
                 url = url.replace("{" + pathParamValue + "}", args[0].toString());
-                //show("Pathparam.value: %s", pathParamValue);
-                //show("Pathparam_value: %s", args[0]);
                 if (args.length > 1) {
                     bodyValue = args[1];
                 }
