@@ -32,7 +32,7 @@ public class StockSystemServiceImpl implements StockSystemService {
 
     @Override
     public void removeFromStock(long productId, long pointOfSaleId, int units) {
-        this.addToStock(productId, pointOfSaleId, units);
+        this.addToStock(productId, pointOfSaleId, -units);
     }
 
 //    @Override

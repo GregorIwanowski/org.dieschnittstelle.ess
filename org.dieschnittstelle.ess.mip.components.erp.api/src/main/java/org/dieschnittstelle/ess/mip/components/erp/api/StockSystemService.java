@@ -2,9 +2,8 @@ package org.dieschnittstelle.ess.mip.components.erp.api;
 
 import org.dieschnittstelle.ess.entities.erp.IndividualisedProductItem;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.awt.*;
 import java.util.List;
 
@@ -17,18 +16,20 @@ import java.util.List;
  */
 @Path("/stock")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces()
+@Produces(MediaType.APPLICATION_JSON)
 public interface StockSystemService {
 
 	/**
 	 * adds some units of a product to the stock of a point of sale
 	 */
-    void addToStock(long productId, long pointOfSaleId, int units);
+	@POST
+    void addToStock(@QueryParam("productId") long productId, @QueryParam("pointOfSaleId") long pointOfSaleId, @QueryParam("units") int units);
 
 	/**
 	 * removes some units of a product from the stock of a point of sale
 	 */
-    void removeFromStock(long productId, long pointOfSaleId, int units);
+	@DELETE
+    void removeFromStock(@QueryParam("productId") long productId, @QueryParam("pointOfSaleId") long pointOfSaleId, @QueryParam("units") int units);
 
 //	/**
 //	 * returns all products on stock or, if pointOfSaleId is specified, the products for some pointOfSale

@@ -13,20 +13,20 @@ public class StockSystemClient implements StockSystem {
 
 	public StockSystemClient() throws Exception {
 		// TODO: remove the comments and complete the implementation
-//		this.serviceProxy = ServiceProxyFactory.getInstance().getProxy(null);
+		this.serviceProxy = ServiceProxyFactory.getInstance().getProxy(StockSystemService.class);
 	}
 
 	// TODO: uncomment the commented sections from all the following methods and remove the default return statements
 
 	@Override
 	public void addToStock(IndividualisedProductItem product, long pointOfSaleId, int units) {
-//		this.serviceProxy.addToStock(product.getId(),pointOfSaleId,units);
+		this.serviceProxy.addToStock(product.getId(),pointOfSaleId,units);
 	}
 
 	@Override
 	public void removeFromStock(IndividualisedProductItem product, long pointOfSaleId,
 								int units) {
-//		this.serviceProxy.removeFromStock(product.getId(),pointOfSaleId,units);
+		this.serviceProxy.removeFromStock(product.getId(),pointOfSaleId,units);
 	}
 
 	@Override

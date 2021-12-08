@@ -42,7 +42,7 @@ public class ProductCRUDImpl implements ProductCRUD {
 
     @Override
     public AbstractProduct readProduct(long productID) {
-        return null;
+        return em.find(AbstractProduct.class, productID);
     }
 
     @Override
