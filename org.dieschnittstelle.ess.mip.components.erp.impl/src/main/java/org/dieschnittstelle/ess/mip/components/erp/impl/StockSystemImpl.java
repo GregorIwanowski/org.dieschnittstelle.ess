@@ -11,7 +11,10 @@ import org.dieschnittstelle.ess.utils.interceptors.Logged;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @ApplicationScoped
 @Transactional
@@ -46,12 +49,25 @@ public class StockSystemImpl implements StockSystem {
 
     @Override
     public List<IndividualisedProductItem> getProductsOnStock(long pointOfSaleId) {
-        return null;
+        PointOfSale pos = posCRUD.readPointOfSale(pointOfSaleId);
+        List<StockItem> stockItemList = stockItemCRUD.readStockItemsForPointOfSale(pos);
+        List<IndividualisedProductItem> productItemList = new ArrayList<IndividualisedProductItem>();
+        for (StockItem stockItem : stockItemList) {
+            productItemList.add(stockItem.getProduct());
+        }
+        return productItemList;
     }
 
     @Override
     public List<IndividualisedProductItem> getAllProductsOnStock() {
-        return null;
+        List<PointOfSale> posList = posCRUD.readAllPointsOfSale();
+        Set<IndividualisedProductItem> productItemSet = new HashSet<IndividualisedProductItem>();
+        for (PointOfSale pos : posList) {
+            List<IndividualisedProductItem> productItemList = this.getProductsOnStock(pos.getId());
+            productItemSet.addAll(productItemList);
+        }
+        List<IndividualisedProductItem> piList = new ArrayList<IndividualisedProductItem>(productItemSet);
+        return piList;
     }
 
     @Override

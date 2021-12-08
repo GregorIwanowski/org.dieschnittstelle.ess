@@ -35,11 +35,14 @@ public class StockSystemServiceImpl implements StockSystemService {
         this.addToStock(productId, pointOfSaleId, -units);
     }
 
-//    @Override
-//    public List<IndividualisedProductItem> getProductsOnStock(long pointOfSaleId) {
-//        return null;
-//    }
-//
+    @Override
+    public List<IndividualisedProductItem> getProductsOnStock(long pointOfSaleId) {
+        if (pointOfSaleId == 0L) {
+            return stockSystem.getAllProductsOnStock();
+        }
+        return stockSystem.getProductsOnStock(pointOfSaleId);
+    }
+
 //    @Override
 //    public int getUnitsOnStock(long productId, long pointOfSaleId) {
 //        return 0;

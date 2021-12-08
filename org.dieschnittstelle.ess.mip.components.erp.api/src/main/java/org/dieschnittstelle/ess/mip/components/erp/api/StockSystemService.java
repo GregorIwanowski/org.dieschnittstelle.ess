@@ -31,11 +31,13 @@ public interface StockSystemService {
 	@DELETE
     void removeFromStock(@QueryParam("productId") long productId, @QueryParam("pointOfSaleId") long pointOfSaleId, @QueryParam("units") int units);
 
-//	/**
-//	 * returns all products on stock or, if pointOfSaleId is specified, the products for some pointOfSale
-//	 */
-//    List<IndividualisedProductItem> getProductsOnStock(long pointOfSaleId);
-//
+	/**
+	 * returns all products on stock or, if pointOfSaleId is specified, the products for some pointOfSale
+	 */
+	@GET
+	@Path("/stock/products")
+    List<IndividualisedProductItem> getProductsOnStock(@QueryParam("pointOfSaleId") long pointOfSaleId);
+
 //	/**
 //	 * returns the units on stock for a given product overall or, if a pointOfSaleId is specified, at some point of sale
 //	 */

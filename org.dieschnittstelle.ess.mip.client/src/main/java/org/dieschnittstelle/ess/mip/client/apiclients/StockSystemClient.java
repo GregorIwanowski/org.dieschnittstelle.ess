@@ -31,14 +31,14 @@ public class StockSystemClient implements StockSystem {
 
 	@Override
 	public List<IndividualisedProductItem> getProductsOnStock(long pointOfSaleId) {
-//		return this.serviceProxy.getProductsOnStock(pointOfSaleId);
-		return new ArrayList<>();
+		return this.serviceProxy.getProductsOnStock(pointOfSaleId);
 	}
 
+	// added this "hack" for pointOfSaleId, because instructions are contradictory
 	@Override
 	public List<IndividualisedProductItem> getAllProductsOnStock() {
-//		return this.serviceProxy.getAllProductsOnStock();
-		return new ArrayList<>();
+		long pointOfSaleId = 0L;
+		return this.serviceProxy.getProductsOnStock(pointOfSaleId);
 	}
 
 	@Override
