@@ -2,6 +2,10 @@ package org.dieschnittstelle.ess.mip.components.erp.api;
 
 import org.dieschnittstelle.ess.entities.erp.IndividualisedProductItem;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -11,6 +15,9 @@ import java.util.List;
  * - in the Bean implementation, delegate method invocations to the corresponding methods of the StockSystem Bean
  * - let the StockSystemClient in the client project access the web api via this interface - see ShoppingCartClient for an example
  */
+@Path("/stock")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces()
 public interface StockSystemService {
 
 	/**
@@ -23,19 +30,19 @@ public interface StockSystemService {
 	 */
     void removeFromStock(long productId, long pointOfSaleId, int units);
 
-	/**
-	 * returns all products on stock or, if pointOfSaleId is specified, the products for some pointOfSale
-	 */
-    List<IndividualisedProductItem> getProductsOnStock(long pointOfSaleId);
-
-	/**
-	 * returns the units on stock for a given product overall or, if a pointOfSaleId is specified, at some point of sale
-	 */
-    int getUnitsOnStock(long productId, long pointOfSaleId);
-
-	/**
-	 * returns the points of sale where some product is available
-	 */
-    List<Long> getPointsOfSale(long productId);
+//	/**
+//	 * returns all products on stock or, if pointOfSaleId is specified, the products for some pointOfSale
+//	 */
+//    List<IndividualisedProductItem> getProductsOnStock(long pointOfSaleId);
+//
+//	/**
+//	 * returns the units on stock for a given product overall or, if a pointOfSaleId is specified, at some point of sale
+//	 */
+//    int getUnitsOnStock(long productId, long pointOfSaleId);
+//
+//	/**
+//	 * returns the points of sale where some product is available
+//	 */
+//    List<Long> getPointsOfSale(long productId);
 
 }
