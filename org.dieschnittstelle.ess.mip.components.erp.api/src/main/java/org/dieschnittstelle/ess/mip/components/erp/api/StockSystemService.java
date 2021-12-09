@@ -35,7 +35,7 @@ public interface StockSystemService {
 	 * returns all products on stock or, if pointOfSaleId is specified, the products for some pointOfSale
 	 */
 	@GET
-	@Path("/stock/products")
+	@Path("/products")
     List<IndividualisedProductItem> getProductsOnStock(@QueryParam("pointOfSaleId") long pointOfSaleId);
 
 //	/**

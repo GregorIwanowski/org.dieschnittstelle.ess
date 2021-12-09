@@ -14,6 +14,7 @@ import javax.json.bind.annotation.JsonbTypeDeserializer;
 import javax.json.bind.annotation.JsonbTypeSerializer;
 import javax.persistence.*;
 
+@Entity
 @JsonbTypeSerializer(JsonbJsonTypeInfoHandler.class)
 @Schema(name="Campaign")
 public class Campaign extends AbstractProduct implements Serializable {
@@ -25,6 +26,7 @@ public class Campaign extends AbstractProduct implements Serializable {
 	 */
 	private static final long serialVersionUID = 4407600000386810001L;
 
+	@OneToMany
 	private List<ProductBundle> bundles;
 
 	public Campaign() {

@@ -37,7 +37,7 @@ public class ProductCRUDImpl implements ProductCRUD {
 
     @Override
     public AbstractProduct updateProduct(AbstractProduct update) {
-        return null;
+        return em.merge(update);
     }
 
     @Override
@@ -47,6 +47,12 @@ public class ProductCRUDImpl implements ProductCRUD {
 
     @Override
     public boolean deleteProduct(long productID) {
-        return false;
+        AbstractProduct prod = em.find(AbstractProduct.class, productID);
+        try {
+            em.remove(prod);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 }

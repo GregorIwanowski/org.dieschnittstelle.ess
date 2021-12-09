@@ -8,6 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 @Schema(name="ProductBundle")
 public class ProductBundle implements Serializable {
 
@@ -18,6 +19,8 @@ public class ProductBundle implements Serializable {
 	 */
 	private static final long serialVersionUID = 1501911067906145681L;
 
+	@Id
+	@GeneratedValue
 	private long id;
 
 	// this had been changed to AbstractProduct due to some jboss/jackson serialisation issue
