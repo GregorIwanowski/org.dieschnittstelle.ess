@@ -72,16 +72,31 @@ public class StockSystemImpl implements StockSystem {
 
     @Override
     public int getUnitsOnStock(IndividualisedProductItem product, long pointOfSaleId) {
-        return 0;
+        PointOfSale pos = posCRUD.readPointOfSale(pointOfSaleId);
+        StockItem si = stockItemCRUD.readStockItem(product, pos);
+        if (si == null) return 0;
+
+        return si.getUnits();
     }
 
     @Override
     public int getTotalUnitsOnStock(IndividualisedProductItem product) {
-        return 0;
+        List<StockItem> sis = stockItemCRUD.readStockItemsForProduct(product);
+        int total = 0;
+        for (StockItem si : sis) {
+            total += si.getUnits();
+        }
+        return total;
     }
 
     @Override
     public List<Long> getPointsOfSale(IndividualisedProductItem product) {
-        return null;
+        List<StockItem> sis = stockItemCRUD.readStockItemsForProduct(product);
+        List<Long> posIds = new ArrayList<Long>();
+        for (StockItem si : sis) {
+            posIds.add(si.getPos().getId());
+        }
+
+        return posIds;
     }
 }
