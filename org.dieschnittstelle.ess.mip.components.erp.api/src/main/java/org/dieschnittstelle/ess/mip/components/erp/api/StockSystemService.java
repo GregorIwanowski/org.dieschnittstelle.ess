@@ -49,6 +49,6 @@ public interface StockSystemService {
 	 */
 	@GET
 	@Path("/poss")
-    List<Long> getPointsOfSale(long productId);
+    List<Long> getPointsOfSale(@QueryParam("productId") long productId);
 
 }
