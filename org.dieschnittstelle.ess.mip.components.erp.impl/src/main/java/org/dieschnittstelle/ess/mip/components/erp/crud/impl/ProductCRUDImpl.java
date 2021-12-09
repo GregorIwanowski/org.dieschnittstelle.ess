@@ -8,6 +8,7 @@ import org.dieschnittstelle.ess.utils.interceptors.Logged;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,9 +31,10 @@ public class ProductCRUDImpl implements ProductCRUD {
 
     @Override
     public List<AbstractProduct> readAllProducts() {
-        IndividualisedProductItem item = new IndividualisedProductItem();
-        item.setName("My Product");
-        return Arrays.asList(item);
+        Query query = em.createQuery("SELECT p FROM AbstractProduct p");
+        List<AbstractProduct> aps = (List<AbstractProduct>) query.getResultList();
+
+        return aps;
     }
 
     @Override
