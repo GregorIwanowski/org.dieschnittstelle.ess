@@ -38,14 +38,17 @@ public interface StockSystemService {
 	@Path("/products")
     List<IndividualisedProductItem> getProductsOnStock(@QueryParam("pointOfSaleId") long pointOfSaleId);
 
-//	/**
-//	 * returns the units on stock for a given product overall or, if a pointOfSaleId is specified, at some point of sale
-//	 */
-//    int getUnitsOnStock(long productId, long pointOfSaleId);
-//
-//	/**
-//	 * returns the points of sale where some product is available
-//	 */
-//    List<Long> getPointsOfSale(long productId);
+	/**
+	 * returns the units on stock for a given product overall or, if a pointOfSaleId is specified, at some point of sale
+	 */
+	@GET
+    int getUnitsOnStock(@QueryParam("productId") long productId, @QueryParam("pointOfSaleId") long pointOfSaleId);
+
+	/**
+	 * returns the points of sale where some product is available
+	 */
+	@GET
+	@Path("/poss")
+    List<Long> getPointsOfSale(long productId);
 
 }
