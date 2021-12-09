@@ -34,7 +34,6 @@ public class StockSystemClient implements StockSystem {
 		return this.serviceProxy.getProductsOnStock(pointOfSaleId);
 	}
 
-	// added this "hack" for pointOfSaleId, because instructions are contradictory
 	@Override
 	public List<IndividualisedProductItem> getAllProductsOnStock() {
 		long pointOfSaleId = 0L;
@@ -43,20 +42,18 @@ public class StockSystemClient implements StockSystem {
 
 	@Override
 	public int getUnitsOnStock(IndividualisedProductItem product, long pointOfSaleId) {
-//		return this.serviceProxy.getUnitsOnStock(product.getId(),pointOfSaleId);
-		return 0;
+		return this.serviceProxy.getUnitsOnStock(product.getId(), pointOfSaleId);
 	}
 
 	@Override
 	public int getTotalUnitsOnStock(IndividualisedProductItem product) {
-//		return this.serviceProxy.getTotalUnitsOnStock(product.getId());
-		return 0;
+		long pointOfSaleId = 0L;
+		return this.serviceProxy.getUnitsOnStock(product.getId(), pointOfSaleId);
 	}
 
 	@Override
 	public List<Long> getPointsOfSale(IndividualisedProductItem product) {
-//		return this.serviceProxy.getPointsOfSale(product.getId());
-		return new ArrayList<>();
+		return this.serviceProxy.getPointsOfSale(product.getId());
 	}
 
 

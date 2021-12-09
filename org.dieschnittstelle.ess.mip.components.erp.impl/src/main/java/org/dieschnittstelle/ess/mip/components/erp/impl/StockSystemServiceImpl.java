@@ -46,8 +46,10 @@ public class StockSystemServiceImpl implements StockSystemService {
     @Override
     public int getUnitsOnStock(long productId, long pointOfSaleId) {
         AbstractProduct product = productCRUD.readProduct(productId);
-        int units = stockSystem.getUnitsOnStock((IndividualisedProductItem) product, pointOfSaleId);
-        return units;
+        if (pointOfSaleId == 0L) {
+            return stockSystem.getTotalUnitsOnStock((IndividualisedProductItem) product);
+        }
+        return stockSystem.getUnitsOnStock((IndividualisedProductItem) product, pointOfSaleId);
     }
 
     @Override
