@@ -8,6 +8,7 @@ import org.dieschnittstelle.ess.entities.crm.ShoppingCartItem;
 import org.dieschnittstelle.ess.entities.erp.AbstractProduct;
 import org.dieschnittstelle.ess.entities.erp.Campaign;
 import org.dieschnittstelle.ess.entities.erp.IndividualisedProductItem;
+import org.dieschnittstelle.ess.entities.erp.ProductBundle;
 import org.dieschnittstelle.ess.mip.components.crm.api.CampaignTracking;
 import org.dieschnittstelle.ess.mip.components.crm.api.CustomerTracking;
 import org.dieschnittstelle.ess.mip.components.crm.api.TouchpointAccess;
@@ -145,6 +146,8 @@ public class PurchaseServiceImpl implements PurchaseService {
             // TODO: ermitteln Sie das AbstractProduct für das gegebene ShoppingCartItem. Nutzen Sie dafür dessen erpProductId und die ProductCRUD bean
             AbstractProduct product = productCRUD.readProduct(item.getErpProductId());
 
+            long posId = this.touchpoint.getErpPointOfSaleId();
+
             if (item.isCampaign()) {
                 this.campaignTracking.purchaseCampaignAtTouchpoint(item.getErpProductId(), this.touchpoint,
                         item.getUnits());
@@ -156,13 +159,22 @@ public class PurchaseServiceImpl implements PurchaseService {
                 // - falls verfuegbar, aus dem Warenlager entfernen - nutzen Sie dafür die StockSystem bean
                 // (Anm.: item.getUnits() gibt Ihnen Auskunft darüber, wie oft ein Produkt, im vorliegenden Fall eine Kampagne, im
                 // Warenkorb liegt)
+                for (ProductBundle prodBundle : ((Campaign) product).getBundles()) {
+                    IndividualisedProductItem prod = (IndividualisedProductItem) prodBundle.getProduct();
+                    int prodAmount = prodBundle.getUnits() * item.getUnits();
+                    int onStock = stockSystem.getUnitsOnStock(prod, posId);
+                    if (onStock >= prodAmount) {
+                        stockSystem.removeFromStock(prod, posId, prodAmount);
+                    } /*else was wenn nicht in der Stueckzahl verfuegbar?!*/
+
+
+                }
 
             } else {
                 // TODO: andernfalls (wenn keine Kampagne vorliegt) muessen Sie
                 // 1) das Produkt in der in item.getUnits() angegebenen Anzahl hinsichtlich Verfuegbarkeit ueberpruefen und
                 // 2) das Produkt, falls verfuegbar, in der entsprechenden Anzahl aus dem Warenlager entfernen
                 int prodAmount = item.getUnits();
-                long posId = this.touchpoint.getErpPointOfSaleId();
                 int onStock = stockSystem.getUnitsOnStock((IndividualisedProductItem) product, posId);
                 if (onStock >= prodAmount) {
                     stockSystem.removeFromStock((IndividualisedProductItem) product, posId, prodAmount);
