@@ -138,7 +138,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     /*
      * TODO PAT2: complete the method implementation in your server-side component for shopping / purchasing
      */
-    private void checkAndRemoveProductsFromStock() {
+    private void checkAndRemoveProductsFromStock() throws ShoppingException {
         logger.info("checkAndRemoveProductsFromStock");
 
         for (ShoppingCartItem item : this.shoppingCart.getItems()) {
@@ -165,9 +165,11 @@ public class PurchaseServiceImpl implements PurchaseService {
                     int onStock = stockSystem.getUnitsOnStock(prod, posId);
                     if (onStock >= prodAmount) {
                         stockSystem.removeFromStock(prod, posId, prodAmount);
-                    } /*else was wenn nicht in der Stueckzahl verfuegbar?!*/
-
-
+                    } else {
+                        throw new ShoppingException("checkAndRemoveProductsFromStock() failed for productBundle " + prodBundle
+                                + " at touchpoint " + this.touchpoint + "! Tried to remove " + prodAmount
+                                + " products from stock, but only got: " + onStock);
+                    }
                 }
 
             } else {
@@ -178,9 +180,12 @@ public class PurchaseServiceImpl implements PurchaseService {
                 int onStock = stockSystem.getUnitsOnStock((IndividualisedProductItem) product, posId);
                 if (onStock >= prodAmount) {
                     stockSystem.removeFromStock((IndividualisedProductItem) product, posId, prodAmount);
-                } /*else was wenn nicht in der Stueckzahl verfuegbar?!*/
+                } else {
+                    throw new ShoppingException("checkAndRemoveProductsFromStock() failed for IndividualisedProductItem " + item
+                            + " at touchpoint " + this.touchpoint + "! Tried to remove " + prodAmount
+                            + " products from stock, but only got: " + onStock);
+                }
             }
-
         }
     }
 
