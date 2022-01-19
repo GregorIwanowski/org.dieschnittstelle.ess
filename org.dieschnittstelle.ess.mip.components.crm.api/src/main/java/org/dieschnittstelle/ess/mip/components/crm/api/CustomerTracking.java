@@ -6,7 +6,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import org.dieschnittstelle.ess.entities.crm.CustomerTransaction;
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
+@RegisterRestClient
 @Path("/tracking")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})

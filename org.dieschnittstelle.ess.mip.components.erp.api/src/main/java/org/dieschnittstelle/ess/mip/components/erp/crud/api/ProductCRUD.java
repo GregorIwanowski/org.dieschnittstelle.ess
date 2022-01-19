@@ -3,6 +3,7 @@ package org.dieschnittstelle.ess.mip.components.erp.crud.api;
 import java.util.List;
 
 import org.dieschnittstelle.ess.entities.erp.AbstractProduct;
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.MediaType;
  * See TouchpointCRUDImpl for an example bean with a similar scope of functionality
  */
 
+@RegisterRestClient
 @Path("/products")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
