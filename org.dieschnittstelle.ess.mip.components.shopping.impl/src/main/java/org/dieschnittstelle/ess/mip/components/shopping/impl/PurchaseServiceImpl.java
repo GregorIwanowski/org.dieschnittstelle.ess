@@ -14,6 +14,7 @@ import org.dieschnittstelle.ess.mip.components.crm.api.CustomerTracking;
 import org.dieschnittstelle.ess.mip.components.crm.api.TouchpointAccess;
 import org.dieschnittstelle.ess.mip.components.crm.crud.api.CustomerCRUD;
 import org.dieschnittstelle.ess.mip.components.erp.api.StockSystem;
+import org.dieschnittstelle.ess.mip.components.erp.api.StockSystemService;
 import org.dieschnittstelle.ess.mip.components.erp.crud.api.ProductCRUD;
 import org.dieschnittstelle.ess.mip.components.shopping.api.PurchaseService;
 import org.dieschnittstelle.ess.mip.components.shopping.api.ShoppingException;
@@ -49,7 +50,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     private ProductCRUD productCRUD;
 
     @Inject
-    private StockSystem stockSystem;
+    private StockSystemService stockSystemService;
 
     /**
      * the customer
@@ -160,11 +161,11 @@ public class PurchaseServiceImpl implements PurchaseService {
                 // (Anm.: item.getUnits() gibt Ihnen Auskunft darüber, wie oft ein Produkt, im vorliegenden Fall eine Kampagne, im
                 // Warenkorb liegt)
                 for (ProductBundle prodBundle : ((Campaign) product).getBundles()) {
-                    IndividualisedProductItem prod = (IndividualisedProductItem) prodBundle.getProduct();
+                    long prodId = ((IndividualisedProductItem) prodBundle.getProduct()).getId();
                     int prodAmount = prodBundle.getUnits() * item.getUnits();
-                    int onStock = stockSystem.getUnitsOnStock(prod, posId);
+                    int onStock = stockSystemService.getUnitsOnStock(prodId, posId);
                     if (onStock >= prodAmount) {
-                        stockSystem.removeFromStock(prod, posId, prodAmount);
+                        stockSystemService.removeFromStock(prodId, posId, prodAmount);
                     } else {
                         throw new ShoppingException("checkAndRemoveProductsFromStock() failed for productBundle " + prodBundle
                                 + " at touchpoint " + this.touchpoint + "! Tried to remove " + prodAmount
@@ -176,10 +177,11 @@ public class PurchaseServiceImpl implements PurchaseService {
                 // TODO: andernfalls (wenn keine Kampagne vorliegt) muessen Sie
                 // 1) das Produkt in der in item.getUnits() angegebenen Anzahl hinsichtlich Verfuegbarkeit ueberpruefen und
                 // 2) das Produkt, falls verfuegbar, in der entsprechenden Anzahl aus dem Warenlager entfernen
+                long prodId = ((IndividualisedProductItem) product).getId();
                 int prodAmount = item.getUnits();
-                int onStock = stockSystem.getUnitsOnStock((IndividualisedProductItem) product, posId);
+                int onStock = stockSystemService.getUnitsOnStock(prodId, posId);
                 if (onStock >= prodAmount) {
-                    stockSystem.removeFromStock((IndividualisedProductItem) product, posId, prodAmount);
+                    stockSystemService.removeFromStock(prodId, posId, prodAmount);
                 } else {
                     throw new ShoppingException("checkAndRemoveProductsFromStock() failed for IndividualisedProductItem " + item
                             + " at touchpoint " + this.touchpoint + "! Tried to remove " + prodAmount
