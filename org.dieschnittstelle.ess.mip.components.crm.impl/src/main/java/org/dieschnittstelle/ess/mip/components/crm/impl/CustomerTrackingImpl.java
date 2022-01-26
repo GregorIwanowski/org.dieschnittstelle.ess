@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 
 import org.dieschnittstelle.ess.mip.components.crm.api.CustomerTracking;
 import org.dieschnittstelle.ess.entities.crm.ShoppingCartItem;
@@ -17,6 +20,8 @@ import org.dieschnittstelle.ess.utils.interceptors.Logged;
 /**
  * allows read/write access to a customer's shopping history
  */
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION+10)
 @Logged
 @ApplicationScoped
 public class CustomerTrackingImpl implements CustomerTracking {

@@ -2,8 +2,11 @@ package org.dieschnittstelle.ess.mip.components.crm.impl;
 
 import java.util.List;
 
+import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
@@ -17,6 +20,8 @@ import org.apache.logging.log4j.Logger;
 import org.dieschnittstelle.ess.mip.components.erp.crud.api.PointOfSaleCRUD;
 import org.dieschnittstelle.ess.utils.interceptors.Logged;
 
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION+10)
 @WebService(targetNamespace = "http://dieschnittstelle.org/ess/jws", serviceName = "TouchpointAccessWebService", endpointInterface = "org.dieschnittstelle.ess.mip.components.crm.api.TouchpointAccess")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @Logged

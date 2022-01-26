@@ -7,7 +7,10 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
+import javax.interceptor.Interceptor;
 
 import org.dieschnittstelle.ess.entities.crm.AbstractTouchpoint;
 import org.dieschnittstelle.ess.entities.crm.CampaignExecution;
@@ -18,6 +21,8 @@ import org.dieschnittstelle.ess.utils.interceptors.Logged;
 /**
  * tracks the execution of a compaign
  */
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION+10)
 @Logged
 @ApplicationScoped
 public class CampaignTrackingImplSingleton implements CampaignTracking {

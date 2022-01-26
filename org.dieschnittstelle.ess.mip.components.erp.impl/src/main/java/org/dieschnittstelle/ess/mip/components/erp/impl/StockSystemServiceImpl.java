@@ -7,11 +7,16 @@ import org.dieschnittstelle.ess.mip.components.erp.api.StockSystemService;
 import org.dieschnittstelle.ess.mip.components.erp.crud.api.ProductCRUD;
 import org.dieschnittstelle.ess.utils.interceptors.Logged;
 
+import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION+10)
 @ApplicationScoped
 @Logged
 @Transactional

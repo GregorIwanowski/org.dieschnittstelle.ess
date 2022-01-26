@@ -1,7 +1,10 @@
 package org.dieschnittstelle.ess.mip.components.crm.crud.impl;
 
+import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
@@ -10,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.dieschnittstelle.ess.mip.components.crm.crud.api.CustomerCRUD;
 import org.dieschnittstelle.ess.utils.interceptors.Logged;
 
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION+10)
 @Logged
 @ApplicationScoped
 @Transactional
