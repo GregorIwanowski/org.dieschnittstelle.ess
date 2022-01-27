@@ -16,7 +16,7 @@ public class ProductCRUDClient implements ProductCRUD {
 	}
 
 	public AbstractProduct createProduct(AbstractProduct prod) {
-
+		//prod.setId(0);
 		// TODO: KOMMENTIEREN SIE DIE FOLGENDE ZUWEISUNG VON IDs UND DIE RETURN-ANWEISUNG AUS
 //		prod.setId(Constants.nextId());
 //		return prod;
