@@ -104,7 +104,8 @@ public class TouchpointServiceServlet extends HttpServlet {
 		TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext().getAttribute("touchpointCRUD");
 
 		String uri = request.getRequestURI();
-		long toDeleteId = Long.parseLong(uri.substring(uri.length()-1));
+		String[] uriParts = uri.split("/");
+		long toDeleteId = Long.parseLong(uriParts[uriParts.length-1]);
 
 		// send Response with "no content" upon successful deletion (as the response does not include an entity)
 		// send Response with "not found" if the resource could not be deleted (because it does not exist)
